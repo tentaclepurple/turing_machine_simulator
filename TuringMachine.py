@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-import time
 from dataclasses import dataclass
 from typing import List, Dict, Optional, Tuple
 
@@ -20,10 +19,10 @@ class TuringConfig:
     finals: List[str]
     transitions: Dict[str, List[Dict[str, str]]]
 
-def load_machine_config(name: str, is_utm: bool = False) -> TuringConfig:
-    filename = f"utm_{name}.json" if is_utm else f"{name}.json"
+def load_machine_config(name: str) -> Optional[TuringConfig]:
+    """Carga la configuración de la máquina desde un archivo JSON."""
     try:
-        with open(f"machines/{filename}", "r") as f:
+        with open(f"machines/{name}.json", "r") as f:
             data = json.load(f)
             return TuringConfig(
                 name=data["name"],
@@ -35,13 +34,15 @@ def load_machine_config(name: str, is_utm: bool = False) -> TuringConfig:
                 transitions=data["transitions"]
             )
     except FileNotFoundError:
-        st.error(f"Configuration file '{filename}' not found.")
-        st.stop()
+        st.error(f"No se encontró la configuración para la máquina '{name}'.")
+        return None
 
 def validate_input(input_str: str, alphabet: List[str]) -> bool:
+    """Valida que todos los caracteres de la entrada estén en el alfabeto permitido."""
     return all(c in alphabet for c in input_str)
 
 def step_machine(config: TuringConfig, state: TuringState) -> Optional[TuringState]:
+    """Ejecuta un paso de la máquina de Turing."""
     if state.head < 0:
         state.tape.insert(0, config.blank)
         state.head = 0
@@ -54,81 +55,75 @@ def step_machine(config: TuringConfig, state: TuringState) -> Optional[TuringSta
     
     if not transition:
         return None
-        
+    
     state.tape[state.head] = transition["write"]
     state.state = transition["to_state"]
     state.head += 1 if transition["action"] == "RIGHT" else -1
     
     return state
 
-def get_utm_tape_for_unary_add(input_str: str) -> str:
-    utm_prefix = "1.+= . ABC aA1B.> bB1B1> bB+B1> bB=C.> #"
-    utm_suffix = " @"
-    return f"{utm_prefix}{input_str}{utm_suffix}"
-
-def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
-    st.markdown("""<style>.stRadio > label {font-size: 1.2rem; color: #DDD;}</style>""", unsafe_allow_html=True)
-
-    is_utm = False
-    if machine_name == "unary_add":
-        is_utm = st.radio(
-            "Machine Type",
-            ["Standard", "Universal (UTM)"],
-            help="Choose between standard Turing Machine or Universal Turing Machine"
-        ) == "Universal (UTM)"
-
-    if machine_name in ["unary_add", "unary_sub"]:
-        col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
-        with col1:
-            num1 = st.text_input("First number:", key="num1", 
-                                help="Use only 1's (e.g., 111 for 3)")
-        with col2:
-            st.markdown(f"""
-                <div class="operator">
-                    {'+' if machine_name == 'unary_add' else '-'}
-                </div>
-            """, unsafe_allow_html=True)
-        with col3:
-            num2 = st.text_input("Second number:", key="num2",
-                                help="Use only 1's (e.g., 11 for 2)")
-        with col4:
-            st.markdown('<div class="operator">=</div>', unsafe_allow_html=True)
+def run_machine(config: TuringConfig, input_str: str, speed: float):
+    """Simula la ejecución de la máquina de Turing paso a paso."""
+    tape = list(input_str)
+    state = TuringState(tape=tape, head=0, state=config.initial)
+    
+    st.write("### Estado inicial")
+    st.write(f"**Cinta**: {''.join(state.tape)}")
+    st.write(f"**Cabezal**: {state.head}")
+    st.write(f"**Estado**: {state.state}")
+    
+    while state.state not in config.finals:
+        time.sleep(speed)
+        state = step_machine(config, state)
+        if state is None:
+            st.error("No se encontró transición válida. La máquina se detuvo.")
+            return
         
-        if num1 and num2:
-            if not all(c == "1" for c in num1 + num2):
-                st.error("Please use only '1's for unary numbers")
-                return None, False
-            input_str = f"{num1}{'+' if machine_name == 'unary_add' else '-'}{num2}="
-            return input_str, is_utm
-            
-    return None, False
+        st.write(f"**Cinta**: {''.join(state.tape)}")
+        st.write(f"**Cabezal**: {state.head}")
+        st.write(f"**Estado**: {state.state}")
+    
+    st.success("¡La máquina ha terminado con éxito!")
+    st.write(f"**Resultado final**: {''.join(state.tape)}")
 
 def main():
     st.set_page_config(
-        page_title="Alan Turing's A-Machine",
+        page_title="Máquina de Turing",
         page_icon="🤖",
-        layout="wide",
-        initial_sidebar_state="collapsed"
+        layout="wide"
     )
     
-    st.title("Alan Turing's A-Machine")
-    st.image("images/turing.jpg", caption="Alan Turing (1912-1954)", use_column_width=True)
+    st.title("Simulador de Máquina de Turing")
     
     machine_name = st.selectbox(
-        "Select Turing Machine:",
-        ["unary_add", "unary_sub", "is_palindrome", "02n", "0n1n"],
+        "Selecciona la máquina:",
+        ["unary_add", "unary_sub", "is_palindrome"],
         format_func=lambda x: {
-            "unary_add": "Unary Addition",
-            "unary_sub": "Unary Subtraction",
-            "is_palindrome": "Palindrome Checker",
-            "02n": "Even Number of Zeros",
-            "0n1n": "Equal Number of Zeros and Ones"
+            "unary_add": "Suma Unaria",
+            "unary_sub": "Resta Unaria",
+            "is_palindrome": "Comprobador de Palíndromos"
         }[x]
     )
     
-    speed = st.slider("Animation Speed", 0.1, 10.0, step=0.1, help="Adjust the simulation speed")
+    config = load_machine_config(machine_name)
+    if not config:
+        return
+    
+    input_str = st.text_input(
+        "Introduce la entrada:",
+        help="Debe coincidir con el alfabeto de la máquina."
+    )
+    if input_str and not validate_input(input_str, config.alphabet):
+        st.error("La entrada contiene caracteres no válidos para esta máquina.")
+        return
+    
+    speed = st.slider("Velocidad de animación:", 0.1, 2.0, 0.5)
+    
+    if st.button("Ejecutar Máquina"):
+        if input_str:
+            run_machine(config, input_str, speed)
+        else:
+            st.error("Por favor, introduce una entrada válida.")
 
-    # Input generation
-    input_str, is_utm = create_machine_input(machine_name)
-    if input_str:
-        st.write(f"Input string: {input_str}")
+if __name__ == "__main__":
+    main()
