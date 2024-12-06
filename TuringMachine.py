@@ -320,47 +320,51 @@ def main():
         run_button = st.button("Run Machine", use_container_width=True)
     
     if input_result:
-        input_str, is_utm = input_result
-        if run_button:
-            config = load_machine_config(machine_name, is_utm)
-            
-            if not validate_input(input_str, config.alphabet):
-                st.error("Invalid input for selected machine")
-                return
+        try:
+            input_str, is_utm = input_result
+            if run_button:
+                config = load_machine_config(machine_name, is_utm)
                 
-            if is_utm:
-                input_str = get_utm_tape_for_unary_add(input_str)
-                
-            state = TuringState(
-                tape=list(input_str),
-                head=0,
-                state=config.initial
-            )
-            
-            vis_placeholder = st.empty()
-            
-            while state and state.state not in config.finals:
-                vis_placeholder.markdown(
-                    render_tape(state.tape, state.head, state.state),
-                    unsafe_allow_html=True
+                if input_str is None or not validate_input(input_str, config.alphabet):
+                    st.error("Invalid input for selected machine")
+                    return
+                    
+                if is_utm:
+                    input_str = get_utm_tape_for_unary_add(input_str)
+                    
+                state = TuringState(
+                    tape=list(input_str),
+                    head=0,
+                    state=config.initial
                 )
                 
-                state = step_machine(config, state)
-                time.sleep(1.0 / speed)
-            
-            if state:
-                vis_placeholder.markdown(
-                    render_tape(state.tape, state.head, state.state),
-                    unsafe_allow_html=True
-                )
-                st.markdown("""
-                    <div style='text-align: center; margin-top: 2rem;'>
-                        <h2 style='color: #4CAF50;'>✓ Machine halted!</h2>
-                        <h3>Final result: {}</h3>
-                    </div>
-                """.format("".join(state.tape)), unsafe_allow_html=True)
-            else:
-                st.error("Machine encountered an error")
+                vis_placeholder = st.empty()
+                
+                while state and state.state not in config.finals:
+                    vis_placeholder.markdown(
+                        render_tape(state.tape, state.head, state.state),
+                        unsafe_allow_html=True
+                    )
+                    
+                    state = step_machine(config, state)
+                    time.sleep(1.0 / speed)
+                
+                if state:
+                    vis_placeholder.markdown(
+                        render_tape(state.tape, state.head, state.state),
+                        unsafe_allow_html=True
+                    )
+                    st.markdown("""
+                        <div style='text-align: center; margin-top: 2rem;'>
+                            <h2 style='color: #4CAF50;'>✓ Machine halted!</h2>
+                            <h3>Final result: {}</h3>
+                        </div>
+                    """.format("".join(state.tape)), unsafe_allow_html=True)
+                else:
+                    st.error("Machine encountered an error")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()
