@@ -283,9 +283,25 @@ def main():
     
     st.markdown("""
         <div class="description">
-            A Turing machine is a mathematical model of computation that defines an abstract machine that manipulates 
-            symbols on a strip of tape according to a table of rules. Despite the model's simplicity, given any computer 
-            algorithm, a Turing machine capable of simulating that algorithm's logic can be constructed.
+            A Turing Machine is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.
+
+Key Components:
+Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
+Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
+State Register: Keeps track of the current state of the machine, which is one of a finite set of states.
+Transition Function: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
+Writes a symbol.
+Moves the head (left or right).
+Changes to a new state.
+How It Works:
+The machine starts in an initial state.
+It reads the symbol under the head and applies the transition function.
+The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol.
+Importance:
+A Turing Machine is not a physical device but a conceptual model.
+It helps define what is computable and provides a framework for understanding the limits of computation.
+Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine.
+In essence, a Turing Machine is a simple yet powerful abstraction for studying computation.
         </div>
     """, unsafe_allow_html=True)
 
