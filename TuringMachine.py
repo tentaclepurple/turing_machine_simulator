@@ -1,7 +1,6 @@
 import streamlit as st
 import json
 import time
-from PIL import Image
 from dataclasses import dataclass
 from typing import List, Dict, Optional, Tuple
 
@@ -67,79 +66,6 @@ def get_utm_tape_for_unary_add(input_str: str) -> str:
     utm_suffix = " @"
     return f"{utm_prefix}{input_str}{utm_suffix}"
 
-def render_tape(tape: List[str], head: int, state: str) -> str:
-    css = """
-    <style>
-        .turing-tape {
-            font-family: monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin: 2rem 0;
-            background: #1E1E1E;
-            padding: 2rem;
-            border-radius: 10px;
-        }
-        .tape-cells {
-            display: flex;
-            border: 2px solid #444;
-            border-radius: 5px;
-            background: #2D2D2D;
-            padding: 5px;
-            overflow-x: auto;
-            max-width: 90vw;
-        }
-        .cell {
-            min-width: 60px;
-            height: 60px;
-            border-right: 1px solid #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: #DDD;
-            position: relative;
-            transition: background-color 0.3s ease;
-            padding: 0 10px;
-        }
-        .cell:last-child {
-            border-right: none;
-        }
-        .cell.current {
-            background: #404040;
-        }
-        .state-display {
-            font-size: 24px;
-            color: #DDD;
-            margin-bottom: 1rem;
-            padding: 10px 20px;
-            background: #2D2D2D;
-            border-radius: 5px;
-            border: 1px solid #444;
-        }
-    </style>
-    """
-    
-    cells_html = ""
-    for i, symbol in enumerate(tape):
-        current_class = "current" if i == head else ""
-        cells_html += f'<div class="cell {current_class}">{symbol}</div>'
-    
-    tape_html = f"""
-    {css}
-    <div class="turing-tape">
-        <div class="state-display">Current State: {state}</div>
-        <div class="tape-cells">
-            {cells_html}
-        </div>
-    </div>
-    """
-    
-    return tape_html
-
 def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
     st.markdown("""<style>.stRadio > label {font-size: 1.2rem; color: #DDD;}</style>""", unsafe_allow_html=True)
 
@@ -159,7 +85,7 @@ def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
         with col2:
             st.markdown(f"""
                 <div class="operator">
-                    {'+'if machine_name == 'unary_add' else '-'}
+                    {'+' if machine_name == 'unary_add' else '-'}
                 </div>
             """, unsafe_allow_html=True)
         with col3:
@@ -172,7 +98,7 @@ def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
             if not all(c == "1" for c in num1 + num2):
                 st.error("Please use only '1's for unary numbers")
                 return None, False
-            input_str = f"{num1}{'+'if machine_name == 'unary_add' else '-'}{num2}="
+            input_str = f"{num1}{'+' if machine_name == 'unary_add' else '-'}{num2}="
             return input_str, is_utm
             
     return None, False
@@ -185,15 +111,8 @@ def main():
         initial_sidebar_state="collapsed"
     )
     
-    st.markdown("""
-        <div class="title-container">
-            <h1>Alan Turing's A-Machine</h1>
-        </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2, col3 = st.columns([2, 1, 2])
-    with col2:
-        st.image("images/turing.jpg", caption="Alan Turing (1912-1954)", use_container_width=True)
+    st.title("Alan Turing's A-Machine")
+    st.image("images/turing.jpg", caption="Alan Turing (1912-1954)", use_column_width=True)
     
     machine_name = st.selectbox(
         "Select Turing Machine:",
@@ -207,5 +126,9 @@ def main():
         }[x]
     )
     
-    speed = st.slider("Animation Speed", 
-                     min_value=0
+    speed = st.slider("Animation Speed", 0.1, 10.0, step=0.1, help="Adjust the simulation speed")
+
+    # Input generation
+    input_str, is_utm = create_machine_input(machine_name)
+    if input_str:
+        st.write(f"Input string: {input_str}")
