@@ -1,0 +1,50 @@
+{
+	"name": "0n1n",
+	"alphabet": ["0", "1", ".", "a", "b", "n", "y"],
+	"blank": ".",
+	"states": ["init", "mark_0", "pair_1_with_a", "check_end", "result_true", "result_false", "write_result", "halt"],
+	"initial": "init",
+	"finals": ["halt"],
+	"transitions": {
+	  "init": [
+		{ "read": "0", "to_state": "mark_0", "write": "a", "action": "RIGHT" },
+		{ "read": "b", "to_state": "check_end", "write": "b", "action": "RIGHT" },
+		{ "read": "1", "to_state": "result_false", "write": "1", "action": "RIGHT" }
+	  ],
+	  "mark_0": [
+		{ "read": "0", "to_state": "mark_0", "write": "0", "action": "RIGHT" },
+		{ "read": "b", "to_state": "mark_0", "write": "b", "action": "RIGHT" },
+		{ "read": "1", "to_state": "pair_1_with_a", "write": "b", "action": "LEFT" },
+		{ "read": ".", "to_state": "result_false", "write": ".", "action": "LEFT" }
+	  ],
+	  "pair_1_with_a": [
+		{ "read": "b", "to_state": "pair_1_with_a", "write": "b", "action": "LEFT" },
+		{ "read": "0", "to_state": "pair_1_with_a", "write": "0", "action": "LEFT" },
+		{ "read": "a", "to_state": "init", "write": "a", "action": "RIGHT" }
+	  ],
+	  "check_end": [
+		{ "read": ".", "to_state": "result_true", "write": ".", "action": "LEFT" },
+		{ "read": "b", "to_state": "check_end", "write": "b", "action": "RIGHT" },
+		{ "read": "1", "to_state": "result_false", "write": "1", "action": "LEFT" },
+		{ "read": "0", "to_state": "result_false", "write": "0", "action": "LEFT" }
+	  ],
+	  "result_false": [
+		{ "read": "0", "to_state": "result_false", "write": "0", "action": "RIGHT" },
+		{ "read": "1", "to_state": "result_false", "write": "1", "action": "RIGHT" },
+		{ "read": "a", "to_state": "result_false", "write": "a", "action": "RIGHT" },
+		{ "read": "b", "to_state": "result_false", "write": "b", "action": "RIGHT" },
+		{ "read": ".", "to_state": "write_result", "write": "n", "action": "RIGHT" }
+	  ],
+	  "result_true": [
+		{ "read": "0", "to_state": "result_true", "write": "0", "action": "RIGHT" },
+		{ "read": "1", "to_state": "result_true", "write": "1", "action": "RIGHT" },
+		{ "read": "a", "to_state": "result_true", "write": "a", "action": "RIGHT" },
+		{ "read": "b", "to_state": "result_true", "write": "b", "action": "RIGHT" },
+		{ "read": ".", "to_state": "write_result", "write": "y", "action": "RIGHT" }
+	  ],
+	  "write_result": [
+		{ "read": ".", "to_state": "halt", "write": ".", "action": "LEFT" }
+	  ]
+	}
+  }
+  

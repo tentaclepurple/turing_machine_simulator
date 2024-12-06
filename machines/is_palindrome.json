@@ -1,0 +1,69 @@
+{
+	"name"    : "is_palindrome",
+	"alphabet": [ "0", "1", "y", "n", ".", "-"],
+	"blank"   : ".",
+	"states"  : [
+		"init",
+		"is_zero",
+		"is_one",
+		"find_last_0",
+		"find_last_1",
+		"find_first",
+		"false",
+		"HALT"
+	],
+	"initial" : "init",
+	"finals"  : [ "HALT"],
+	"transitions" : {
+		"init": [
+			{ "read" : "-", "to_state": "init", "write": "-", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "find_last_0", "write": "-", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "find_last_1", "write": "-", "action": "RIGHT"},
+			{ "read" : "y", "to_state": "HALT", "write": "y", "action": "LEFT"},
+			{ "read" : "n", "to_state": "HALT", "write": "n", "action": "LEFT"}
+		],
+
+		"find_last_0": [
+			{ "read" : "-", "to_state": "find_last_0", "write": "-", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "find_last_0", "write": "0", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "find_last_0", "write": "1", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "is_zero", "write": "y", "action": "LEFT"},
+			{ "read" : "y", "to_state": "is_zero", "write": "y", "action": "LEFT"}
+		],
+		"find_last_1": [
+			{ "read" : "-", "to_state": "find_last_1", "write": "-", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "find_last_1", "write": "0", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "find_last_1", "write": "1", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "is_one", "write": "y", "action": "LEFT"},
+			{ "read" : "y", "to_state": "is_one", "write": "y", "action": "LEFT"}
+		],
+
+		"is_one": [
+			{ "read" : "-", "to_state": "is_one", "write": "-", "action": "LEFT"},
+			{ "read" : ".", "to_state": "HALT", "write": ".", "action": "LEFT"},
+			{ "read" : "1", "to_state": "find_first", "write": "-", "action": "LEFT"},
+			{ "read" : "0", "to_state": "false", "write": "1", "action": "RIGHT"}
+		],
+
+		"is_zero": [
+			{ "read" : "-", "to_state": "is_zero", "write": "-", "action": "LEFT"},
+			{ "read" : ".", "to_state": "HALT", "write": ".", "action": "LEFT"},
+			{ "read" : "0", "to_state": "find_first", "write": "-", "action": "LEFT"},
+			{ "read" : "1", "to_state": "false", "write": "1", "action": "RIGHT"}
+		],
+		"find_first": [
+			{ "read" : "-", "to_state": "find_first", "write": "-", "action": "LEFT"},
+			{ "read" : "1", "to_state": "find_first", "write": "1", "action": "LEFT"},
+			{ "read" : "0", "to_state": "find_first", "write": "0", "action": "LEFT"},
+			{ "read" : ".", "to_state": "init", "write": ".", "action": "RIGHT"}
+		],
+		"false": [
+			{ "read" : "1", "to_state": "false", "write": "1", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "false", "write": "0", "action": "RIGHT"},
+			{ "read" : "-", "to_state": "false", "write": "-", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "false", "write": ".", "action": "RIGHT"},
+			{ "read" : "y", "to_state": "HALT", "write": "n", "action": "LEFT"},
+			{ "read" : "n", "to_state": "HALT", "write": "n", "action": "LEFT"}
+		]
+	}
+}

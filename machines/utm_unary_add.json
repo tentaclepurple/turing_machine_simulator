@@ -1,0 +1,222 @@
+{
+    "name": "MY_UTM_ADD",
+    "alphabet": ["1", "+", "=", ".", " ", "A", "B", "C", "a", "b", "c", ">", "#", "_", "~", "@"],
+    "blank": ".",
+    "states": [
+                "skip_intro",
+                "f_start",
+                "f_input_front",
+                "f_input_back",
+                "r_0_input",
+                "r_*_input",
+                "f_init-1",
+                "f_scan-(1+)",
+                "r_trans-(1+)",
+                "r_tr_init-1",
+                "r_tr_scan-(1+)",
+                "r_tr_init_if1-1",
+                "r_tr_init_if1_w.-1",
+                "r_tr_scan_if(1+)-(1+)",
+                "r_tr_scan_if(1+)_w(1)-(1+)",
+                "f_output->.",
+                "f_output",
+                "f_output_last",
+                "woutput->.",
+                "woutput->1",
+                "skip",
+                "HALT"
+            ],
+    "r_tr_init_if1_-1": [ "HALT"],
+    "initial": "skip_intro",
+    "finals": ["HALT"],
+    "transitions": {
+		"skip_intro": [
+			{ "read": "1", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "+", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "=", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": " ", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": ".", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "A", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "B", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "C", "to_state": "skip_intro", "write": "~", "action": "RIGHT" },
+            { "read": "a", "to_state": "f_input_front", "write": "a", "action": "RIGHT" }
+        ],
+        "f_start": [
+            { "read": "1", "to_state": "f_start", "write": "1", "action": "LEFT"},
+            { "read": "+", "to_state": "f_start", "write": "+", "action": "LEFT"},
+            { "read": "=", "to_state": "f_start", "write": "=", "action": "LEFT"},
+            { "read": " ", "to_state": "f_start", "write": " ", "action": "LEFT"},
+            { "read": ".", "to_state": "f_start", "write": ".", "action": "LEFT"},
+            { "read": "A", "to_state": "f_start", "write": "A", "action": "LEFT"},
+            { "read": "B", "to_state": "f_start", "write": "B", "action": "LEFT"},
+            { "read": "C", "to_state": "f_start", "write": "C", "action": "LEFT"},
+            { "read": "a", "to_state": "f_start", "write": "a", "action": "LEFT"},
+            { "read": "b", "to_state": "f_start", "write": "b", "action": "LEFT"},
+            { "read": "c", "to_state": "f_start", "write": "c", "action": "LEFT"},
+            { "read": ">", "to_state": "f_start", "write": ">", "action": "LEFT"},
+            { "read": "_", "to_state": "f_start", "write": "_", "action": "LEFT"},
+            { "read": "#", "to_state": "f_start", "write": "#", "action": "LEFT"},
+            { "read": "@", "to_state": "f_start", "write": "@", "action": "LEFT"},
+            { "read": "~", "to_state": "f_scan-(1+)", "write": "~", "action": "RIGHT"}
+
+        ],
+        "f_input_front": [
+            { "read": "1", "to_state": "f_input_front", "write": "1", "action": "RIGHT" },
+            { "read": "+", "to_state": "f_input_front", "write": "+", "action": "RIGHT" },
+            { "read": "=", "to_state": "f_input_front", "write": "=", "action": "RIGHT" },
+            { "read": " ", "to_state": "f_input_front", "write": " ", "action": "RIGHT" },
+            { "read": ".", "to_state": "f_input_front", "write": ".", "action": "RIGHT" },
+            { "read": "A", "to_state": "f_input_front", "write": "A", "action": "RIGHT" },
+            { "read": "B", "to_state": "f_input_front", "write": "B", "action": "RIGHT" },
+            { "read": "C", "to_state": "f_input_front", "write": "C", "action": "RIGHT" },
+            { "read": "a", "to_state": "f_input_front", "write": "a", "action": "RIGHT" },
+            { "read": "b", "to_state": "f_input_front", "write": "b", "action": "RIGHT" },
+            { "read": "c", "to_state": "f_input_front", "write": "c", "action": "RIGHT" },
+            { "read": ">", "to_state": "f_input_front", "write": ">", "action": "RIGHT" },
+            { "read": "_", "to_state": "f_input_front", "write": "_", "action": "RIGHT" },
+            { "read": "#", "to_state": "r_0_input", "write": "#", "action": "RIGHT" }
+        ],
+        "f_input_back": [
+            { "read": "1", "to_state": "f_input_back", "write": "1", "action": "LEFT" },
+            { "read": "+", "to_state": "f_input_back", "write": "+", "action": "LEFT" },
+            { "read": "=", "to_state": "f_input_back", "write": "=", "action": "LEFT" },
+            { "read": " ", "to_state": "f_input_back", "write": " ", "action": "LEFT" },
+            { "read": ".", "to_state": "f_input_back", "write": ".", "action": "LEFT" },
+            { "read": "A", "to_state": "f_input_back", "write": "A", "action": "LEFT" },
+            { "read": "B", "to_state": "f_input_back", "write": "B", "action": "LEFT" },
+            { "read": "C", "to_state": "f_input_back", "write": "C", "action": "LEFT" },
+            { "read": "a", "to_state": "f_input_back", "write": "a", "action": "LEFT" },
+            { "read": "b", "to_state": "f_input_back", "write": "b", "action": "LEFT" },
+            { "read": "c", "to_state": "f_input_back", "write": "c", "action": "LEFT" },
+            { "read": ">", "to_state": "f_input_back", "write": ">", "action": "LEFT" },
+            { "read": "@", "to_state": "f_input_back", "write": "@", "action": "LEFT" },
+            { "read": "_", "to_state": "r_*_input", "write": "_", "action": "RIGHT" },
+            { "read": "#", "to_state": "HALT", "write": "#", "action": "LEFT" }
+        ],
+        "r_0_input": [
+           {"read": "1", "to_state": "f_init-1", "write": "_", "action": "LEFT" },
+           {"read": "+", "to_state": "HALT", "write": "_", "action": "LEFT" }
+        ],
+        "r_*_input": [
+            {"read": "1", "to_state": "f_start", "write": "_", "action": "LEFT" },
+            {"read": "+", "to_state": "f_start", "write": "_", "action": "LEFT" },
+            {"read": "=", "to_state": "HALT", "write": "=", "action": "LEFT" }
+        ],
+        "f_init-1": [
+            {"read": "#", "to_state": "f_init-1", "write": "#", "action": "LEFT"},
+            {"read": "1", "to_state": "f_init-1", "write": "1", "action": "LEFT"},
+            {"read": " ", "to_state": "f_init-1", "write": " ", "action": "LEFT"},
+            {"read": ".", "to_state": "f_init-1", "write": ".", "action": "LEFT"},
+            {"read": "A", "to_state": "f_init-1", "write": "A", "action": "LEFT"},
+            {"read": "=", "to_state": "f_init-1", "write": "=", "action": "LEFT"},
+            {"read": "+", "to_state": "f_init-1", "write": "+", "action": "LEFT"},
+            {"read": "B", "to_state": "f_init-1", "write": "B", "action": "LEFT"},
+            {"read": "C", "to_state": "f_init-1", "write": "C", "action": "LEFT"},
+            {"read": "b", "to_state": "f_init-1", "write": "b", "action": "LEFT"},
+            {"read": "c", "to_state": "f_init-1", "write": "c", "action": "LEFT"},
+            {"read": ">", "to_state": "f_init-1", "write": ">", "action": "LEFT"},
+            {"read": "a", "to_state": "r_trans-(1+)", "write": "a", "action": "RIGHT"}
+        ],
+        "f_scan-(1+)": [
+            {"read": "1", "to_state": "f_scan-(1+)", "write": "1", "action": "RIGHT"},
+            {"read": "+", "to_state": "f_scan-(1+)", "write": "+", "action": "RIGHT"},
+            {"read": "=", "to_state": "f_scan-(1+)", "write": "=", "action": "RIGHT"},
+            {"read": " ", "to_state": "f_scan-(1+)", "write": " ", "action": "RIGHT"},
+            {"read": ".", "to_state": "f_scan-(1+)", "write": ".", "action": "RIGHT"},
+            {"read": "A", "to_state": "f_scan-(1+)", "write": "A", "action": "RIGHT"},
+            {"read": "B", "to_state": "f_scan-(1+)", "write": "B", "action": "RIGHT"},
+            {"read": "C", "to_state": "f_scan-(1+)", "write": "C", "action": "RIGHT"},
+            {"read": "a", "to_state": "f_scan-(1+)", "write": "a", "action": "RIGHT"},
+            {"read": "c", "to_state": "f_scan-(1+)", "write": "c", "action": "RIGHT"},
+            {"read": ">", "to_state": "f_scan-(1+)", "write": ">", "action": "RIGHT"},
+            {"read": "b", "to_state": "r_trans-(1+)", "write": "b", "action": "RIGHT"}
+
+        ],
+        "r_trans-(1+)": [
+            {"read": "A", "to_state": "r_tr_init-1", "write": "A", "action": "RIGHT"},
+            {"read": "B", "to_state": "r_tr_scan-(1+)", "write": "B", "action": "RIGHT"}
+        ],
+        "r_tr_init-1": [
+            {"read": "1", "to_state": "r_tr_init_if1-1", "write": "1", "action": "RIGHT"}
+        ],
+        "r_tr_scan-(1+)": [
+            {"read": "1", "to_state": "r_tr_scan_if(1+)-(1+)", "write": "1", "action": "RIGHT"},
+            {"read": "+", "to_state": "r_tr_scan_if(1+)-(1+)", "write": "+", "action": "RIGHT"}
+        ],
+        "r_tr_init_if1-1": [
+            {"read": "B", "to_state": "r_tr_init_if1-1", "write": "B", "action": "RIGHT"},
+            {"read": ".", "to_state": "r_tr_init_if1_w.-1", "write": ".", "action": "RIGHT"}
+        ],
+        "r_tr_scan_if(1+)-(1+)": [
+            {"read": "B", "to_state": "r_tr_scan_if(1+)-(1+)", "write": "B", "action": "RIGHT"},
+            {"read": "+", "to_state": "r_tr_scan_if(1+)_w(1)-(1+)", "write": "+", "action": "RIGHT"},
+            {"read": "1", "to_state": "r_tr_scan_if(1+)_w(1)-(1+)", "write": "1", "action": "RIGHT"}
+        ],
+        "r_tr_init_if1_w.-1": [
+            {"read": ">", "to_state": "f_output->.", "write": ">", "action": "RIGHT"}
+        ],
+        "r_tr_scan_if(1+)_w(1)-(1+)": [
+            {"read": ">", "to_state": "f_output", "write": ">", "action": "RIGHT"}
+        ],
+        "f_output->.": [
+            {"read": "1", "to_state": "f_output->.", "write": "1", "action": "RIGHT"},
+            {"read": " ", "to_state": "f_output->.", "write": " ", "action": "RIGHT"},
+            {"read": ".", "to_state": "f_output->.", "write": ".", "action": "RIGHT"},
+            {"read": "A", "to_state": "f_output->.", "write": "A", "action": "RIGHT"},
+            {"read": "=", "to_state": "f_output->.", "write": "=", "action": "RIGHT"},
+            {"read": "+", "to_state": "f_output->.", "write": "+", "action": "RIGHT"},
+            {"read": "B", "to_state": "f_output->.", "write": "B", "action": "RIGHT"},
+            {"read": "C", "to_state": "f_output->.", "write": "C", "action": "RIGHT"},
+            {"read": "a", "to_state": "f_output->.", "write": "a", "action": "RIGHT"},
+            {"read": "b", "to_state": "f_output->.", "write": "b", "action": "RIGHT"},
+            {"read": "c", "to_state": "f_output->.", "write": "c", "action": "RIGHT"},
+            {"read": ">", "to_state": "f_output->.", "write": ">", "action": "RIGHT"},
+            {"read": "_", "to_state": "f_output->.", "write": "_", "action": "RIGHT"},
+            {"read": "#", "to_state": "f_output->.", "write": "#", "action": "RIGHT"},
+            {"read": "@", "to_state": "woutput->.", "write": "@", "action": "RIGHT"}
+        ],
+        "f_output": [
+            {"read": "1", "to_state": "f_output", "write": "1", "action": "RIGHT"},
+            {"read": " ", "to_state": "f_output", "write": " ", "action": "RIGHT"},
+            {"read": "A", "to_state": "f_output", "write": "A", "action": "RIGHT"},
+            {"read": "=", "to_state": "f_output", "write": "=", "action": "RIGHT"},
+            {"read": "+", "to_state": "f_output", "write": "+", "action": "RIGHT"},
+            {"read": "B", "to_state": "f_output", "write": "B", "action": "RIGHT"},
+            {"read": "C", "to_state": "f_output", "write": "C", "action": "RIGHT"},
+            {"read": "a", "to_state": "f_output", "write": "a", "action": "RIGHT"},
+            {"read": "b", "to_state": "f_output", "write": "b", "action": "RIGHT"},
+            {"read": "c", "to_state": "f_output", "write": "c", "action": "RIGHT"},
+            {"read": ">", "to_state": "f_output", "write": ">", "action": "RIGHT"},
+            {"read": "_", "to_state": "f_output", "write": "_", "action": "RIGHT"},
+            {"read": "#", "to_state": "f_output", "write": "#", "action": "RIGHT"},
+            {"read": ".", "to_state": "f_output", "write": ".", "action": "RIGHT"},
+            {"read": "@", "to_state": "f_output_last", "write": "@", "action": "RIGHT"}
+        ],
+        "f_output_last": [
+            {"read": ".", "to_state": "woutput->1", "write": ".", "action": "RIGHT"}
+        ],
+        "woutput->.": [
+            {"read": ".", "to_state": "f_input_back", "write": ".", "action": "LEFT"}
+        ],
+        "woutput->1": [
+            {"read": "1", "to_state": "woutput->1", "write": "1", "action": "RIGHT"},
+            {"read": ".", "to_state": "f_input_back", "write": "1", "action": "LEFT"}
+        ],
+        "skip": [
+            {"read": ".", "to_state": "HALT", "write": "1", "action": "RIGHT"},
+            {"read": "1", "to_state": "HALT", "write": "1", "action": "RIGHT"},
+            {"read": "+", "to_state": "HALT", "write": "+", "action": "RIGHT"},
+            {"read": "=", "to_state": "HALT", "write": "=", "action": "RIGHT"},
+            {"read": " ", "to_state": "HALT", "write": " ", "action": "RIGHT"},
+            {"read": "A", "to_state": "HALT", "write": "A", "action": "RIGHT"},
+            {"read": "B", "to_state": "HALT", "write": "B", "action": "RIGHT"},
+            {"read": "C", "to_state": "HALT", "write": "C", "action": "RIGHT"},
+            {"read": "a", "to_state": "HALT", "write": "a", "action": "RIGHT"},
+            {"read": "b", "to_state": "HALT", "write": "b", "action": "RIGHT"},
+            {"read": ">", "to_state": "HALT", "write": ">", "action": "RIGHT"},
+            {"read": "_", "to_state": "HALT", "write": "_", "action": "RIGHT"},
+            {"read": "#", "to_state": "HALT", "write": "#", "action": "RIGHT"},
+            {"read": "@", "to_state": "HALT", "write": "@", "action": "RIGHT"}
+        ]
+    }
+}
