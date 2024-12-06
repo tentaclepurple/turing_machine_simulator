@@ -197,7 +197,7 @@ def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
     elif machine_name == "0n1n":
         input_str = st.text_input("Enter a string of zeros and ones (start with 0):",
                                  help="Use 0s followed by 1s (e.g., 00111)")
-        if input_str and not all(c in ["0", "1"] for c in input_str):
+        if (input_str and not all(c in ["0", "1"] for c in input_str)) or (input_str and not input_str.startswith("0")):
             st.error("Please use only 0s and 1s and start with 0s")
             return None, False
         return input_str, False
