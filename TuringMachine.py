@@ -213,30 +213,67 @@ def main():
     )
     
     st.markdown("""
-        # A Turing Machine
+        <style>
+            .stApp {
+                background: #121212;
+                color: #DDD;
+            }
+            section[data-testid="stSidebar"] {
+                background: #1E1E1E;
+            }
+            .stSelectbox > div > div > div {
+                background: #2D2D2D;
+                color: #DDD;
+            }
+            .stButton button {
+                width: 100%;
+                background: #FF4B4B;
+                color: white;
+            }
+            .stSlider span {
+                color: #DDD;
+            }
+            h1, h2, h3, p {
+                color: #DDD !important;
+            }
+            .title-container {
+                text-align: center;
+                margin: 2rem 0;
+            }
+            .description {
+                text-align: center;
+                font-size: 1.2rem;
+                margin: 2rem auto;
+                max-width: 800px;
+            }
+            .operator {
+                font-size: 2.5rem;
+                color: #DDD;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            .image-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 2rem 0;
+            }
+            .image-container img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
-        A **Turing Machine** is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.
-
-        ## Key Components:
-
-        1. **Tape**: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
-        2. **Head**: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
-        3. **State Register**: Keeps track of the current state of the machine, which is one of a finite set of states.
-        4. **Transition Function**: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
-            * Writes a symbol
-            * Moves the head (left or right)
-            * Changes to a new state
-
-        ## How It Works:
-        * The machine starts in an initial state
-        * It reads the symbol under the head and applies the transition function
-        * The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol
-
-        ## Importance:
-        * A Turing Machine is not a physical device but a conceptual model
-        * It helps define what is computable and provides a framework for understanding the limits of computation
-        * Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine
-    """)
+    st.markdown("""
+        <div class="title-container">
+            <h1>Alan Turing's A-Machine</h1>
+        </div>
+    """, unsafe_allow_html=True)
 
     # Imagen de Alan Turing
     col1, col2, col3 = st.columns([2, 1, 2])
@@ -245,81 +282,29 @@ def main():
     
     
     st.markdown("""
-            <style>
-                .description-container {
-                    max-width: 800px;
-                    margin: 2rem auto;
-                    padding: 2rem;
-                    background: #1E1E1E;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                }
-                .description-title {
-                    color: #FF4B4B;
-                    font-size: 1.5rem;
-                    margin-bottom: 1.5rem;
-                    font-weight: bold;
-                }
-                .description-section {
-                    margin-bottom: 2rem;
-                }
-                .description-subtitle {
-                    color: #4CAF50;
-                    font-size: 1.2rem;
-                    margin: 1.5rem 0 1rem 0;
-                    font-weight: bold;
-                }
-                .description-list {
-                    margin-left: 1.5rem;
-                    margin-bottom: 1rem;
-                }
-                .description-list li {
-                    margin-bottom: 0.5rem;
-                    line-height: 1.6;
-                }
-                .highlight {
-                    color: #64B5F6;
-                    font-weight: bold;
-                }
-            </style>
-            <div class="description-container">
-                <p>A <span class="highlight">Turing Machine</span> is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.</p>
-                
-                <div class="description-section">
-                    <div class="description-subtitle">Key Components:</div>
-                    <ol class="description-list">
-                        <li><span class="highlight">Tape:</span> An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.</li>
-                        <li><span class="highlight">Head:</span> A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.</li>
-                        <li><span class="highlight">State Register:</span> Keeps track of the current state of the machine, which is one of a finite set of states.</li>
-                        <li><span class="highlight">Transition Function:</span> A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
-                            <ul class="description-list">
-                                <li>Writes a symbol</li>
-                                <li>Moves the head (left or right)</li>
-                                <li>Changes to a new state</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
+        <div class="description">
+            A Turing Machine is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.
 
-                <div class="description-section">
-                    <div class="description-subtitle">How It Works:</div>
-                    <ul class="description-list">
-                        <li>The machine starts in an initial state</li>
-                        <li>It reads the symbol under the head and applies the transition function</li>
-                        <li>The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol</li>
-                    </ul>
-                </div>
-
-                <div class="description-section">
-                    <div class="description-subtitle">Importance:</div>
-                    <ul class="description-list">
-                        <li>A Turing Machine is not a physical device but a conceptual model</li>
-                        <li>It helps define what is computable and provides a framework for understanding the limits of computation</li>
-                        <li>Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine</li>
-                    </ul>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+            Key Components:
+            Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
+            Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
+            State Register: Keeps track of the current state of the machine, which is one of a finite set of states.
+            Transition Function: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
+            
+                - Writes a symbol.
+                - Moves the head (left or right).
+                - Changes to a new state.
+            
+            How It Works:
+            The machine starts in an initial state.
+            It reads the symbol under the head and applies the transition function.
+            The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol.
+            Importance:
+            A Turing Machine is not a physical device but a conceptual model.
+            It helps define what is computable and provides a framework for understanding the limits of computation.
+            Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine.
+        </div>
+    """, unsafe_allow_html=True)
 
     # Imagen de la máquina de Turing conceptual
     col1, col2, col3 = st.columns([3, 2, 3])
