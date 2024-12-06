@@ -288,23 +288,35 @@ def main():
             <br>
             Key Components:
             <br>
-            Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
+            - Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
             <br>
-            Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
-            State Register: Keeps track of the current state of the machine, which is one of a finite set of states.
-            Transition Function: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
-            
+            - Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
+            <br>
+            - State Register: Keeps track of the current state of the machine, which is one of a finite set of states.
+            <br>
+            - Transition Function: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
+            <br>
                 - Writes a symbol.
                 - Moves the head (left or right).
                 - Changes to a new state.
-            
+            <br>
+            <br>
             How It Works:
-            The machine starts in an initial state.
-            It reads the symbol under the head and applies the transition function.
-            The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol.
+            <br>
+            - The machine starts in an initial state.
+            <br>
+            - It reads the symbol under the head and applies the transition function.
+            <br>
+            - The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol.
+            <br>
+            <br>        
             Importance:
+            <br>
             A Turing Machine is not a physical device but a conceptual model.
+            <br>
             It helps define what is computable and provides a framework for understanding the limits of computation.
+            <br>
+            <br>    
             Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine.
         </div>
     """, unsafe_allow_html=True)
