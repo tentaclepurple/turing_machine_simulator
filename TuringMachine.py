@@ -283,54 +283,37 @@ def main():
     
     st.markdown("""
         <div class="description">
-            <h2>What is a Turing Machine?</h2>
-            <p>
-                A <strong>Turing Machine</strong> is a theoretical computational model introduced by Alan Turing in 1936. 
-                It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in 
-                computer science, particularly in the study of computation and complexity.
-            </p>
-            
-            <h3>Key Components:</h3>
-            <ul>
-                <li><strong>Tape:</strong> An infinitely long strip divided into cells, each capable of holding a symbol 
-                    from a finite alphabet. The tape acts as the machine's memory.</li>
-                <li><strong>Head:</strong> A reading/writing mechanism that moves along the tape, one cell at a time, 
-                    either left or right.</li>
-                <li><strong>State Register:</strong> Keeps track of the current state of the machine, which is one of a 
-                    finite set of states.</li>
-                <li><strong>Transition Function:</strong> A set of rules that dictate the machine's behavior. Based on the 
-                    current state and the symbol under the head, the machine:
+            A <strong>Turing Machine</strong> is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.
+            <br><br>
+            <strong>Key Components:</strong>
+            <ol>
+                <li><strong>Tape</strong>: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.</li>
+                <li><strong>Head</strong>: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.</li>
+                <li><strong>State Register</strong>: Keeps track of the current state of the machine, which is one of a finite set of states.</li>
+                <li><strong>Transition Function</strong>: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
                     <ul>
                         <li>Writes a symbol.</li>
                         <li>Moves the head (left or right).</li>
                         <li>Changes to a new state.</li>
                     </ul>
                 </li>
-            </ul>
-            
-            <h3>How It Works:</h3>
-            <ol>
+            </ol>
+            <br>
+            <strong>How It Works:</strong>
+            <ul>
                 <li>The machine starts in an initial state.</li>
                 <li>It reads the symbol under the head and applies the transition function.</li>
-                <li>The process continues until it reaches a designated final state or halts because no transition is 
-                    defined for the current state and symbol.</li>
-            </ol>
-            
-            <h3>Importance:</h3>
+                <li>The process continues until it reaches a designated final state or halts because no transition is defined for the current state and symbol.</li>
+            </ul>
+            <br>
+            <strong>Importance:</strong>
             <ul>
                 <li>A Turing Machine is not a physical device but a conceptual model.</li>
-                <li>It helps define what is computable and provides a framework for understanding the limits of 
-                    computation.</li>
-                <li>Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any 
-                    other Turing Machine.</li>
+                <li>It helps define what is computable and provides a framework for understanding the limits of computation.</li>
+                <li>Variants, such as Universal Turing Machines (UTMs), demonstrate how a single machine can simulate any other Turing Machine.</li>
             </ul>
-            
-            <p>
-                In essence, a Turing Machine is a simple yet powerful abstraction for studying computation.
-            </p>
         </div>
     """, unsafe_allow_html=True)
-
 
     # Imagen de la máquina de Turing conceptual
     col1, col2, col3 = st.columns([3, 2, 3])
