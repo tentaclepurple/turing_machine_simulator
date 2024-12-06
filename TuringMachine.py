@@ -288,9 +288,9 @@ def main():
             <br>
             Key Components:
             <br>
-                Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
-            
-                Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
+            Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
+            <br>
+            Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
             State Register: Keeps track of the current state of the machine, which is one of a finite set of states.
             Transition Function: A set of rules that dictate the machine's behavior. Based on the current state and the symbol under the head, the machine:
             
