@@ -59,7 +59,6 @@ def step_machine(config: TuringConfig, state: TuringState) -> Optional[TuringSta
     return state
 
 def get_utm_tape_for_unary_add(input_str: str) -> str:
-    """Genera la cinta UTM para la suma unaria con la configuración específica"""
     utm_prefix = "1.+= . ABC aA1B.> bB1B1> bB+B1> bB=C.> #"
     utm_suffix = " @"
     return f"{utm_prefix}{input_str}{utm_suffix}"
@@ -180,7 +179,7 @@ def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
             return input_str, is_utm
             
     elif machine_name == "is_palindrome":
-        input_str = st.text_input("Enter a binary string:", 
+        input_str = st.text_input("Enter a binary string (1 or 0):", 
                                  help="Use only 0s and 1s (e.g., 1001)")
         if input_str and not all(c in ["0", "1"] for c in input_str):
             st.error("Please use only 0s and 1s")
@@ -196,10 +195,10 @@ def create_machine_input(machine_name: str) -> Tuple[Optional[str], bool]:
         return input_str, False
         
     elif machine_name == "0n1n":
-        input_str = st.text_input("Enter a string:",
+        input_str = st.text_input("Enter a string of zeros and ones (start with 0):",
                                  help="Use 0s followed by 1s (e.g., 00111)")
-        if input_str and not all(c in ["0", "1"] for c in input_str):
-            st.error("Please use only 0s and 1s")
+        if input_str and not all(c in ["0", "1"] for c in input_str) or input_str.startswith("1"):
+            st.error("Please use only 0s and 1s and start with 0s")
             return None, False
         return input_str, False
     
