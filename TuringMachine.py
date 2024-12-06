@@ -285,6 +285,7 @@ def main():
         <div class="description">
             A Turing Machine is a theoretical computational model introduced by Alan Turing in 1936. It is designed to simulate the logic of any computer algorithm and serves as a fundamental concept in computer science, particularly in the study of computation and complexity.
             <br>
+            <br>
             Key Components:
             Tape: An infinitely long strip divided into cells, each capable of holding a symbol from a finite alphabet. The tape acts as the machine's memory.
             Head: A reading/writing mechanism that moves along the tape, one cell at a time, either left or right.
